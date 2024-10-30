@@ -1,0 +1,64 @@
+<o-form-layout-manager attr="Walk" mode="tab" title="WALK">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="WalkTable" 
+            service="Walk" 
+            entity="Walk" 
+            title="WALK"
+            keys="id"
+            columns="id;dog_id;walk_request_id;walker_id;created_date;updated_date;created_by" 
+            header-actions="R;D"
+            visible-columns="id;dog_id;walk_request_id;walker_id;created_date;updated_date;created_by"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="dog_id" title="dog_id">
+    <o-table-cell-renderer-service attr="dog_id" 
+        service="Dog" entity="DogType" columns="id;name"
+        parent-keys="id:dog_id"
+        value-column="name" keys="dog_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="walk_request_id" title="walk_request_id">
+    <o-table-cell-renderer-service attr="walk_request_id" 
+        service="WalkRequest" entity="WalkRequestType" columns="id;id"
+        parent-keys="id:walk_request_id"
+        value-column="id" keys="walk_request_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="walker_id" title="walker_id">
+    <o-table-cell-renderer-service attr="walker_id" 
+        service="Walker" entity="WalkerType" columns="id;first_name"
+        parent-keys="id:walker_id"
+        value-column="first_name" keys="walker_id"
+        visible-columns="first_name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-date-input #created_date attr="created_date" type="timestamp" label="created_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-date-input #updated_date attr="updated_date" type="timestamp" label="updated_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-column #created_by attr="created_by" title="created_by" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

@@ -1,0 +1,49 @@
+<o-form-layout-manager attr="Walker" mode="tab" title="WALKER">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="WalkerTable" 
+            service="Walker" 
+            entity="Walker" 
+            title="WALKER"
+            keys="id"
+            columns="first_name;last_name;postal_code;phone;email;max_dogs_per_walk;created_date;updated_date;created_by;id" 
+            header-actions="R;D"
+            visible-columns="first_name;last_name;postal_code;phone;email;max_dogs_per_walk;created_date;updated_date;created_by;id"  
+            sort-columns="first_name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #first_name attr="first_name" title=" first_name*" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #last_name attr="last_name" title="last_name" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #postal_code attr="postal_code" title="postal_code" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #phone attr="phone" title="phone" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #email attr="email" title="email" editable="no" required="yes" content-align="left"></o-table-column>
+            
+            <o-table-column #max_dogs_per_walk attr="max_dogs_per_walk" title="max_dogs_per_walk" type="integer" editable="no" required="yes" content-align="center"></o-table-column>
+            
+            <o-date-input #created_date attr="created_date" type="timestamp" label="created_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-date-input #updated_date attr="updated_date" type="timestamp" label="updated_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-column #created_by attr="created_by" title="created_by" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

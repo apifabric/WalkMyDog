@@ -1,0 +1,485 @@
+about:
+  date: October 30, 2024 14:07:32
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 15
+  number_tables: 13
+info_toggle_checked: true
+resources:
+  BusinessAdministrator:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: email
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    - name: id
+    description: A table for business administrators who manage the system.
+    info_list: A table for business administrators who manage the system.
+    type: BusinessAdministrator
+    user_key: name
+  Dog:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: owner_id
+      required: true
+    - name: size
+      required: true
+    - name: notes
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    - name: id
+    - name: breed
+      required: true
+    description: A table that stores information about dogs owned by registered owners.
+    info_list: A table that stores information about dogs owned by registered owners.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - dog_id
+      name: WalkList
+      resource: Walk
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    type: Dog
+    user_key: name
+  Owner:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: address
+      required: true
+    - name: phone
+      required: true
+    - name: email
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    - name: id
+    description: A table that stores registered dog owners and their personal information.
+    info_list: A table that stores registered dog owners and their personal information.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - owner_id
+      name: DogList
+      resource: Dog
+    - direction: tomany
+      fks:
+      - owner_id
+      name: PaymentList
+      resource: Payment
+    - direction: tomany
+      fks:
+      - owner_id
+      name: ReviewList
+      resource: Review
+    - direction: tomany
+      fks:
+      - owner_id
+      name: WalkRequestList
+      resource: WalkRequest
+    type: Owner
+    user_key: name
+  Payment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: owner_id
+      required: true
+    - name: walk_id
+      required: true
+    - name: walker_id
+      required: true
+    - name: amount
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    description: A table that records payments made by owners after a walk.
+    info_list: A table that records payments made by owners after a walk.
+    tab_groups:
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    - direction: toone
+      fks:
+      - walk_id
+      name: walk
+      resource: Walk
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Payment
+    user_key: id
+  Review:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: owner_id
+      required: true
+    - name: walk_id
+      required: true
+    - name: walker_id
+      required: true
+    - name: review_text
+    - name: rating
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    description: A table that allows owners to leave reviews for walkers after the
+      walk.
+    info_list: A table that allows owners to leave reviews for walkers after the walk.
+    tab_groups:
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    - direction: toone
+      fks:
+      - walk_id
+      name: walk
+      resource: Walk
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Review
+    user_key: id
+  Role:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: description
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    - name: id
+    description: A table to maintain roles for different user types.
+    info_list: A table to maintain roles for different user types.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - role_id
+      name: UserRoleList
+      resource: UserRole
+    type: Role
+    user_key: name
+  SystemLog:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: event
+      required: true
+    - name: event_date
+      type: DATETIME
+    - name: created_by
+    - name: user_id
+    description: A table for logging system events and actions.
+    info_list: A table for logging system events and actions.
+    type: SystemLog
+    user_key: id
+  UserRole:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: role_id
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    - name: user_id
+      required: true
+    description: A table to associate users with their respective roles.
+    info_list: A table to associate users with their respective roles.
+    tab_groups:
+    - direction: toone
+      fks:
+      - role_id
+      name: role
+      resource: Role
+    type: UserRole
+    user_key: id
+  Walk:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: dog_id
+      required: true
+    - name: walk_request_id
+      required: true
+    - name: walker_id
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    description: A table that stores confirmed walks, linking walkers and dogs.
+    info_list: A table that stores confirmed walks, linking walkers and dogs.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walk_id
+      name: PaymentList
+      resource: Payment
+    - direction: tomany
+      fks:
+      - walk_id
+      name: ReviewList
+      resource: Review
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    - direction: toone
+      fks:
+      - walk_request_id
+      name: walk_request
+      resource: WalkRequest
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: Walk
+    user_key: id
+  WalkRequest:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: owner_id
+      required: true
+    - name: walker_id
+    - name: day_of_week
+      required: true
+    - name: time_of_day
+      required: true
+    - name: status
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    description: A table to handle walk requests for dogs, connecting owners and walkers.
+    info_list: A table to handle walk requests for dogs, connecting owners and walkers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walk_request_id
+      name: WalkList
+      resource: Walk
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: WalkRequest
+    user_key: id
+  Walker:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: last_name
+      required: true
+    - name: postal_code
+      required: true
+    - name: phone
+      required: true
+    - name: email
+      required: true
+    - name: max_dogs_per_walk
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    - name: id
+    description: A table that stores registered dog walkers and their personal information.
+    info_list: A table that stores registered dog walkers and their personal information.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walker_id
+      name: PaymentList
+      resource: Payment
+    - direction: tomany
+      fks:
+      - walker_id
+      name: ReviewList
+      resource: Review
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkList
+      resource: Walk
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkRequestList
+      resource: WalkRequest
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkerAvailabilityList
+      resource: WalkerAvailability
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkerRateList
+      resource: WalkerRate
+    type: Walker
+    user_key: first_name
+  WalkerAvailability:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: walker_id
+      required: true
+    - name: day_of_week
+      required: true
+    - name: time_of_day
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    description: A table to store availability of walkers on different days and times.
+    info_list: A table to store availability of walkers on different days and times.
+    tab_groups:
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: WalkerAvailability
+    user_key: id
+  WalkerRate:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: walker_id
+      required: true
+    - name: size
+      required: true
+    - name: rate
+      required: true
+    - name: created_date
+      type: DATETIME
+    - name: updated_date
+      type: DATETIME
+    - name: created_by
+    description: A table that indicates the walking rate for different dog sizes set
+      by walkers.
+    info_list: A table that indicates the walking rate for different dog sizes set
+      by walkers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: WalkerRate
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
